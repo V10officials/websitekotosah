@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up Form</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(45deg, #000, #003366);
+            color: white;
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 60px;
+            position: relative;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background-color: white;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-image {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+            object-fit: cover;
+        }
+
+        .logo span {
+            font-weight: 700;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin: 0 12px;
+            font-size: 14px;
+            padding: 8px 16px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .auth-buttons a {
+            text-decoration: none;
+            margin-left: 15px;
+            font-size: 14px;
+        }
+
+        .signin {
+            color: white;
+        }
+
+        .signup {
+            background: linear-gradient(45deg, #003366, #000);
+            border: 2px solid #003366;
+            padding: 8px 16px;
+            border-radius: 6px;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5), 0 0 10px rgba(0, 51, 102, 0.5);
+            transition: all 0.3s ease;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+        }
+
+        .signup:hover {
+            background: linear-gradient(45deg, #000, #003366);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.7), 0 0 15px rgba(0, 51, 102, 0.8);
+            transform: scale(1.05);
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 100px 20px;
+        }
+
+        .hero h1 {
+            font-size: 40px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #ffffff;
+            text-shadow: 0 0 10px rgba(0, 51, 102, 0.8), 2px 2px 4px rgba(0, 0, 0, 0.5);
+            letter-spacing: 2px;
+        }
+
+        .hero p {
+            font-size: 15px;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+
+        .hero-buttons {
+            margin-bottom: 40px;
+        }
+
+        .btn {
+            text-decoration: none;
+            padding: 12px 22px;
+            border-radius: 6px;
+            margin: 0 10px;
+            font-size: 14px;
+            display: inline-block;
+        }
+
+        .primary {
+            background: linear-gradient(45deg, #003366, #000);
+            border: 2px solid #003366;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5), 0 0 10px rgba(0, 51, 102, 0.5);
+            transition: all 0.3s ease;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+        }
+
+        .primary:hover {
+            background: linear-gradient(45deg, #000, #003366);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.7), 0 0 15px rgba(0, 51, 102, 0.8);
+            transform: scale(1.05);
+        }
+
+        .secondary {
+            background: linear-gradient(45deg, #003366, #000);
+            border: 2px solid #003366;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5), 0 0 10px rgba(0, 51, 102, 0.5);
+            transition: all 0.3s ease;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+        }
+
+        .secondary:hover {
+            background: linear-gradient(45deg, #000, #003366);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.7), 0 0 15px rgba(0, 51, 102, 0.8);
+            transform: scale(1.05);
+        }
+
+        /* Tech Icons */
+        .tech-icons span {
+            margin: 0px;
+            font-size: 22px;
+            opacity: 0.7px;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 20px 20px;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .hamburger {
+                display: none;
+            }
+
+            .nav-links {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                width: 100%;
+                padding: 10px 0;
+                margin-top: 10px;
+            }
+
+            .nav-links a {
+                margin: 0 10px;
+                padding: 8px 12px;
+                font-size: 12px;
+            }
+
+            .auth-buttons {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 30px;
+            }
+
+            .hero p {
+                font-size: 14px;
+            }
+
+            .btn {
+                padding: 10px 18px;
+                font-size: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar {
+                padding: 15px 15px;
+            }
+
+            .logo {
+                font-size: 18px;
+            }
+
+            .hero {
+                padding: 50px 10px;
+            }
+
+            .hero h1 {
+                font-size: 24px;
+            }
+
+            .hero p {
+                font-size: 12px;
+            }
+
+            .tech-icons span {
+                font-size: 18px;
+            }
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background-color: #f4f4f4;
+            color: #e4dcdc;
+            padding: 100px 20px;
+            text-align: center;
+        }
+
+        .contact-section h2 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .contact-section p {
+            font-size: 18px;
+            margin-bottom: 50px;
+            opacity: 0.8;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 50px;
+        }
+
+        .form-group {
+            width: 100%;
+            max-width: 500px;
+            margin-bottom: 20px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            font-family: inherit;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .info-item {
+            flex: 1;
+            min-width: 200px;
+            text-align: center;
+        }
+
+        .info-item h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #fcfcfc;
+        }
+
+        .info-item p {
+            font-size: 16px;
+        }
+
+        /* Mobile Responsiveness for Contact */
+        @media (max-width: 768px) {
+            .contact-section {
+                padding: 50px 20px;
+            }
+
+            .contact-section h2 {
+                font-size: 28px;
+            }
+
+            .contact-info {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .info-item {
+                min-width: auto;
+                margin-bottom: 20px;
+            }
+        }
+
+        /* Glassmorphism Effect */
+        .glassmorphism {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            padding: 20px;
+            margin: 20px;
+        }
+
+        /* About Section */
+        .about-section {
+            padding: 100px 20px;
+            text-align: center;
+            color: white;
+        }
+
+        .about-section h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .about-section p {
+            font-size: 18px;
+            margin-bottom: 50px;
+            opacity: 0.9;
+        }
+
+        .about-content {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .about-item {
+            flex: 1;
+            min-width: 250px;
+            text-align: center;
+        }
+
+        .about-item h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .about-item p {
+            font-size: 16px;
+            opacity: 0.8;
+        }
+
+        /* Team Section */
+        .team-section {
+            padding: 100px 20px;
+            text-align: center;
+            color: white;
+        }
+
+        .team-section h2 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .team-section p {
+            font-size: 18px;
+            margin-bottom: 50px;
+            opacity: 0.8;
+        }
+
+        .team-members {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .team-member {
+            flex: 1;
+            min-width: 200px;
+            text-align: center;
+        }
+
+        .team-member img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-bottom: 15px;
+            object-fit: cover;
+        }
+
+        .team-member h3 {
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+
+        .team-member p {
+            font-size: 16px;
+            opacity: 0.7;
+        }
+
+        /* Mobile Responsiveness for About and Team */
+        @media (max-width: 768px) {
+            .about-section, .team-section {
+                padding: 50px 20px;
+            }
+
+            .about-section h2, .team-section h2 {
+                font-size: 28px;
+            }
+
+            .about-content, .team-members {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .about-item, .team-member {
+                min-width: auto;
+                margin-bottom: 30px;
+            }
+        }
+
+        /* Sign-Up Form Specific Styles */
+        .signup-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 50px auto;
+            max-width: 500px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            padding: 40px;
+        }
+
+        .signup-form h2 {
+            margin-bottom: 20px;
+            font-size: 28px;
+            color: white;
+        }
+
+        .signup-form .form-group {
+            width: 100%;
+            margin-bottom: 15px;
+        }
+
+        .signup-form input {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 16px;
+        }
+
+        .signup-form input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .signup-form button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(45deg, #003366, #000);
+            border: 2px solid #003366;
+            color: white;
+            font-weight: bold;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+        }
+
+        .signup-form button:hover {
+            background: linear-gradient(45deg, #000, #003366);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.7);
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">
+            <img src="Slee.png" alt="Logo" class="logo-image"> <!-- Replace with your logo image -->
+            <span>SLEE</span>
+        </div>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="nav-links">
+            <a href="mymaininterface.html">Home</a>
+            <a href="#about">About</a>
+            <a href="#team">Team</a>
+            <a href="#contact">Contact</a>
+        </div>
+        <div class="auth-buttons">
+            <a href="signin.html" class="signin">Sign In</a>
+            <a href="signup.html" class="signup">Sign Up</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Welcome to Our Platform</h1>
+        <p>Join us today and explore amazing features.</p>
+        <div class="hero-buttons">
+            <a href="#signup" class="btn primary">Get Started</a>
+            <a href="#learn-more" class="btn secondary">Learn More</a>
+        </div>
+    </section>
+
+    <!-- Sign-Up Form Section -->
+    <section id="signup" class="signup-form glassmorphism">
+        <h2>Sign Up</h2>
+        <form action="#" method="post"> <!-- Replace with your form action -->
+            <div class="form-group">
+                <input type="text" name="fullname" placeholder="Full Name" required>
+            </div>
+            <div class="form-group">
+                <input type="email" name="email" placeholder="Email Address" required>
+            </div>
+            <div class="form-group">
+                <input type="password" name="password" placeholder="Password" required>
+            </div>
+            <div class="form-group">
+                <input type="password" name="confirm_password" placeholder="Confirm Password" required>
+            </div>
+            <button type="submit">Sign Up</button>
+        </form>
+    </section>
+
+    <!-- About Section -->
+    <script src="accountfunction.js"></script>
+    <script>
+        document.querySelector('form').addEventListener('submit', handleSignup);
+    </script>
+    <section class="about-section">
+        <h2>About Us</h2>
+        <p>We are a team dedicated to providing the best services.</p>
+        <div class="about-content">
+            <div class="about-item">
+                <h3>Our Mission</h3>
+                <p>To innovate and deliver quality solutions.</p>
+            </div>
+            <div class="about-item">
+                <h3>Our Vision</h3>
+                <p>To be leaders in our industry.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team-section">
+        <h2>Our Team</h2>
+        <p>Meet the people behind our success.</p>
+        <div class="team-members">
+            <div class="team-member">
+                <img src="team1.jpg" alt="Team Member 1"> <!-- Replace with actual image -->
+                <h3>John Doe</h3>
+                <p>CEO</p>
+            </div>
+            <div class="team-member">
+                <img src="team2.jpg" alt="Team Member 2"> <!-- Replace with actual image -->
+                <h3>Jane Smith</h3>
+                <p>CTO</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact

@@ -1,0 +1,34 @@
+ How It Works:
+
+Primary AI: It tries to use Claude AI API for intelligent, context-aware responses
+Fallback AI: If the API isn't available, it uses a smart local response system that handles:
+
+Greetings (hi, hello, hey)
+Questions (anything with a "?")
+Math calculations
+Goodbyes
+Thanks
+"How are you" type questions
+And general conversations!
+
+
+
+✨ Features:
+
+Natural Conversations: Ask anything like "tell me a joke", "what do you think about...", "help me with..."
+Context Memory: Remembers your conversation
+Weather: "weather in Paris"
+Time Zones: "time in Tokyo"
+Math: "25 + 17"
+Always Responds: No matter what you type, you get an intelligent response!
+
+🎯 Try These:
+
+"How are you?"
+"Tell me about yourself"
+"What can you do?"
+"What's 100 * 5?"
+"Weather in London"
+"Time in Dubai"
+"Tell me something interesting"
+"Help me with homework"
