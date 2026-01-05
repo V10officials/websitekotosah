@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - SLEE</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #000428 0%, #004e92 100%);
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            z-index: 100;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+            z-index: 101;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background-color: white;
+            border-radius: 2px;
+            transition: 0.3s ease;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(8px, -8px);
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-image {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: white;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #00bfff;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .signin {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .signin:hover {
+            color: white;
+        }
+
+        .signup {
+            background: rgba(0, 191, 255, 0.3);
+            border: 2px solid rgba(0, 191, 255, 0.8);
+            padding: 8px 20px;
+            border-radius: 8px;
+            color: white;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .signup:hover {
+            background: rgba(0, 191, 255, 0.5);
+            box-shadow: 0 0 20px rgba(0, 191, 255, 0.6);
+            transform: translateY(-2px);
+        }
+
+        /* Mobile Menu */
+        .nav-links.mobile-active {
+            display: flex !important;
+            flex-direction: column;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: rgba(0, 4, 40, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            gap: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            animation: slideDown 0.3s ease;
+        }
+
+        .auth-buttons.mobile-active {
+            display: flex !important;
+            flex-direction: column;
+            position: absolute;
+            top: calc(100% + 200px);
+            left: 0;
+            right: 0;
+            background: rgba(0, 4, 40, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            gap: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 100px 20px;
+        }
+
+        .hero h1 {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: white;
+            letter-spacing: 2px;
+        }
+
+        .hero p {
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 30px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            text-decoration: none;
+            padding: 12px 28px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            display: inline-block;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .primary {
+            background: rgba(0, 191, 255, 0.4);
+            border: 1px solid rgba(0, 191, 255, 0.6);
+            color: white;
+            backdrop-filter: blur(5px);
+        }
+
+        .primary:hover {
+            background: rgba(0, 191, 255, 0.6);
+            box-shadow: 0 0 15px rgba(0, 191, 255, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .secondary {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            backdrop-filter: blur(5px);
+        }
+
+        .secondary:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        /* Sign-Up Form */
+        .signup-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 50px auto;
+            max-width: 500px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            padding: 50px 40px;
+        }
+
+        .signup-container h2 {
+            margin-bottom: 10px;
+            font-size: 32px;
+            color: #00bfff;
+            font-weight: 700;
+        }
+
+        .signup-container p {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 30px;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .form-group {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .form-group input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: rgba(0, 191, 255, 0.6);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 15px rgba(0, 191, 255, 0.3);
+        }
+
+        .password-toggle {
+            position: relative;
+        }
+
+        .toggle-btn {
+            position: absolute;
+            right: 12px;
+            top: 40px;
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.6);
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-btn:hover {
+            color: #00bfff;
+        }
+
+        .password-strength {
+            margin-top: 8px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .strength-bar {
+            height: 100%;
+            width: 0%;
+            transition: all 0.3s ease;
+        }
+
+        .error-message {
+            color: #ff6b6b;
+            font-size: 12px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .signup-btn {
+            width: 100%;
+            padding: 12px 20px;
+            background: rgba(0, 191, 255, 0.4);
+            border: 1px solid rgba(0, 191, 255, 0.6);
+            color: white;
+            font-weight: 600;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+            margin-top: 10px;
+        }
+
+        .signup-btn:hover {
+            background: rgba(0, 191, 255, 0.6);
+            box-shadow: 0 0 15px rgba(0, 191, 255, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .signup-btn:active {
+            transform: translateY(0);
+        }
+
+        .login-link {
+            color: rgba(255, 255, 255, 0.8);
+            text-align: center;
+            margin-top: 20px;
+            font-size: 13px;
+        }
+
+        .login-link a {
+            color: #00bfff;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        /* About Section */
+        .about-section {
+            padding: 100px 20px;
+            text-align: center;
+            color: white;
+        }
+
+        .about-section h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: #00bfff;
+        }
+
+        .about-content {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .about-item {
+            flex: 1;
+            min-width: 250px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .about-item:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(0, 191, 255, 0.4);
+            transform: translateY(-5px);
+        }
+
+        .about-item h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: #00bfff;
+        }
+
+        .about-item p {
+            font-size: 14px;
+            opacity: 0.8;
+            margin-bottom: 0;
+        }
+
+        /* Team Section */
+        .team-section {
+            padding: 100px 20px;
+            text-align: center;
+            color: white;
+        }
+
+        .team-section h2 {
+            font-size: 36px;
+            margin-bottom: 10px;
+            color: #00bfff;
+        }
+
+        .team-section p {
+            font-size: 16px;
+            margin-bottom: 50px;
+            opacity: 0.8;
+        }
+
+        .team-members {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .team-member {
+            flex: 1;
+            min-width: 220px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .team-member:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(0, 191, 255, 0.4);
+            transform: translateY(-5px);
+        }
+
+        .team-member img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-bottom: 15px;
+            object-fit: cover;
+            border: 2px solid rgba(0, 191, 255, 0.4);
+        }
+
+        .team-member h3 {
+            font-size: 20px;
+            margin-bottom: 5px;
+            color: #00bfff;
+        }
+
+        .team-member p {
+            font-size: 14px;
+            opacity: 0.7;
+            margin-bottom: 0;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-links,
+            .auth-buttons {
+                display: none;
+            }
+
+            .hero {
+                padding: 80px 20px;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .hero p {
+                font-size: 14px;
+            }
+
+            .signup-container {
+                max-width: 90%;
+                padding: 40px 30px;
+            }
+
+            .signup-container h2 {
+                font-size: 28px;
+            }
+
+            .about-section,
+            .team-section {
+                padding: 60px 20px;
+            }
+
+            .about-section h2,
+            .team-section h2 {
+                font-size: 28px;
+            }
+
+            .about-content,
+            .team-members {
+                flex-direction: column;
+            }
+
+            .about-item,
+            .team-member {
+                min-width: auto;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar {
+                padding: 10px 12px;
+            }
+
+            .logo {
+                font-size: 16px;
+            }
+
+            .logo-image {
+                width: 30px;
+                height: 30px;
+            }
+
+            .hero {
+                padding: 60px 15px;
+            }
+
+            .hero h1 {
+                font-size: 24px;
+            }
+
+            .signup-container {
+                max-width: 95%;
+                padding: 30px 20px;
+                margin: 30px auto;
+            }
+
+            .signup-container h2 {
+                font-size: 24px;
+            }
+
+            .form-group input {
+                padding: 10px 12px;
+                font-size: 13px;
+            }
+
+            .signup-btn {
+                padding: 10px 15px;
+                font-size: 12px;
+            }
+
+            .about-section,
+            .team-section {
+                padding: 50px 15px;
+            }
+
+            .about-section h2,
+            .team-section h2 {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">
+            <img src="Slee.png" alt="Logo" class="logo-image">
+            <span>SLEE</span>
+        </div>
+
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <div class="nav-links" id="navLinks">
+            <a href="home.html">Home</a>
+            <a href="#about">About</a>
+            <a href="#team">Team</a>
+            <a href="#contact">Contact</a>
+        </div>
+
+        <div class="auth-buttons" id="authButtons">
+            <a href="signin.html" class="signin">Sign In</a>
+            <a href="signup.html" class="signup">Sign Up</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Join SLEE Today</h1>
+        <p>Create your account and start your AI journey with us</p>
+        <div class="hero-buttons">
+            <a href="#signup" class="btn primary">Get Started</a>
+            <a href="home.html" class="btn secondary">Go Back</a>
+        </div>
+    </section>
+
+    <!-- Sign-Up Form Section -->
+    <section id="signup" class="signup-container">
+        <h2>Sign Up</h2>
+        <p>Create your account to access all features</p>
+        
+        <form id="signupForm">
+            <div class="form-group">
+                <label for="fullname">Full Name</label>
+                <input type="text" id="fullname" name="fullname" placeholder="Enter your full name" required>
+                <div class="error-message" id="fullnameError"></div>
+            </div>
+
+            <div class="form-group">
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                <div class="error-message" id="emailError"></div>
+            </div>
+
+            <div class="form-group password-toggle">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Create a password" required>
+                <button type="button" class="toggle-btn" id="togglePassword">👁️</button>
+                <div class="password-strength">
+                    <div class="strength-bar" id="strengthBar"></div>
+                </div>
+                <div class="error-message" id="passwordError"></div>
+            </div>
+
+            <div class="form-group password-toggle">
+                <label for="confirm_password">Confirm Password</label>
+                <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm your password" required>
+                <button type="button" class="toggle-btn" id="toggleConfirm">👁️</button>
+                <div class="error-message" id="confirmError"></div>
+            </div>
+
+            <button type="submit" class="signup-btn">Sign Up</button>
+
+            <div class="login-link">
+                Already have an account? <a href="signin.html">Sign In</a>
+            </div>
+        </form>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section" id="about">
+        <h2>About SLEE</h2>
+        <p>Join thousands of users who are already experiencing the power of AI-driven solutions</p>
+        
+        <div class="about-content">
+            <div class="about-item">
+                <h3>🚀 Fast Setup</h3>
+                <p>Get started in minutes with our simple and intuitive registration process.</p>
+            </div>
+            <div class="about-item">
+                <h3>🔒 Secure</h3>
+                <p>Your data is protected with enterprise-grade security and encryption.</p>
+            </div>
+            <div class="about-item">
+                <h3>🤖 Powerful AI</h3>
+                <p>Access cutting-edge AI technology for all your needs.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team-section" id="team">
+        <h2>Our Team</h2>
+        <p>Meet the talented people behind SLEE</p>
+        
+        <div class="team-members">
+            <div class="team-member">
+                <img src="https://via.placeholder.com/100" alt="Team Member">
+                <h3>John Doe</h3>
+                <p>Lead Developer</p>
+            </div>
+            <div class="team-member">
+                <img src="https://via.placeholder.com/100" alt="Team Member">
+                <h3>Jane Smith</h3>
+                <p>AI Specialist</p>
+            </div>
+            <div class="team-member">
+                <img src="https://via.placeholder.com/100" alt="Team Member">
+                <h3>Mike Johnson</h3>
+                <p>UI/UX Designer</p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Mobile hamburger menu
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+        const authButtons = document.getElementById('authButtons');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('mobile-active');
+            authButtons.classList.toggle('mobile-active');
+        });
+
+        // Close menu when link is clicked
+        document.querySelectorAll('#navLinks a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('mobile-active');
+                authButtons.classList.remove('mobile-active');
+            });
+        });
+
+        // Toggle password visibility
+        const togglePassword = document.getElementById('togglePassword');
+        const toggleConfirm = document.getElementById('toggleConfirm');
+        const passwordInput = document.getElementById('password');
+        const confirmInput = document.getElementById('confirm_password');
+
+        togglePassword.addEventListener('click', (e) => {
+            e.preventDefault();
+            passwordInput.type = passwordInput.type === 'password' ? 'text' : 'password';
+            togglePassword.textContent = passwordInput.type === 'password' ? '👁️' : '🙈';
+        });
+
+        toggleConfirm.addEventListener('click', (e) => {
+            e.preventDefault();
+            confirmInput.type = confirmInput.type === 'password' ? 'text' : 'password';
+            toggleConfirm.textContent = confirmInput.type === 'password' ? '👁️' : '🙈';
+        });
+
+        // Password strength indicator
+        passwordInput.addEventListener('input', () => {
+            const strength = calculateStrength(passwordInput.value);
+            const strengthBar = document.getElementById('strengthBar');
+            strengthBar.style.width = strength + '%';
+
+            if (strength < 33) {
+                strengthBar.style.background = '#ff6b6b';
+            } else if (strength < 66) {
+                strengthBar.style.background = '#ffd43b';
+            } else {
+                strengthBar.style.background = '#51cf66';
+            }
+        });
+
+        function calculateStrength(password) {
+            let strength = 0;
+            if (password.length >= 8) strength += 25;
+            if (password.length >= 12) strength += 25;
+            if (/[a-z]/.test(password)) strength += 10;
+            if (/[A-Z]/.test(password)) strength += 10;
+            if (/[0-9]/.test(password)) strength += 15;
+            if (/[^a-zA-Z0-9]/.test(password)) strength += 15;
+            return Math.min(strength, 100);
+        }
+
+        // Form validation
+        document.getElementById('signupForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            // Clear previous errors
+            document.getElementById('fullnameError').style.display = 'none';
+            document.getElementById('emailError').style.display = 'none';
+            document.getElementById('passwordError').style.display = 'none';
+            document.getElementById('confirmError').style.display = 'none';
+
+            const fullname = document.getElementById('fullname').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm_password').value;
+
+            let hasError = false;
+
+            if (!fullname) {
+                document.getElementById('fullnameError').textContent = 'Full name is required';
+                document.getElementById('fullnameError').style.display = 'block';
+                hasError = true;
+            }
+
+            if (!email || !email.includes('@')) {
+                document.getElementById('emailError').textContent = 'Valid email is required';
+                document.getElementById('emailError').style.display = 'block';
+                hasError = true;
+            }
+
+            if (password.length < 8) {
+                document.getElementById('passwordError').textContent = 'Password must be at least 8 characters';
+                document.getElementById('passwordError').style.display = 'block';
+                hasError = true;
+            }
+
+            if (password !== confirmPassword) {
+                document.getElementById('confirmError').textContent = 'Passwords do not match';
+                document.getElementById('confirmError').style.display = 'block';
+                hasError = true;
+            }
+
+            if (!hasError) {
+                alert('Sign up successful! Redirecting to sign in...');
+                window.location.href = 'signin.html';
+            }
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
